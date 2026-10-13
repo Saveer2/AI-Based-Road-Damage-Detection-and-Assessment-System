@@ -1,4 +1,4 @@
-# RDD_AI
+# RDD_AI_P1
 
 ### Deep Learning-Based Road Damage Detection and Video Analysis System
 
@@ -71,4 +71,4 @@ Detection performance depends on the quality of the input video, lighting condit
 
 ---
 
-**RDD_AI** — An AI-powered approach to automated road damage detection and video analysis.
+**RDD_AI_p1** — An AI-powered approach to automated road damage detection and video analysis.
