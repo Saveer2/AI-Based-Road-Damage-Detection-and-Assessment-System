@@ -1,74 +1,36 @@
-# RDD_AI_P1
-
-### Deep Learning-Based Road Damage Detection and Video Analysis System
+# Comparative Road Damage Detection Using YOLO11n and Faster R-CNN for Video-Based Inspection
 
 ## Overview
 
-RDD_AI is a computer vision project designed to detect road damage from uploaded videos using a trained YOLO object detection model. The system processes videos frame by frame, identifies road damage, and generates an annotated output video containing detection results.
+This repository houses the complete implementation and comparative evaluation framework for a research study analyzing road infrastructure defects. The project benchmarks a state-of-the-art single-stage object detector (**YOLO11n**) against a traditional two-stage architecture (**Faster R-CNN with a ResNet-50-FPN backbone**) using a custom road damage dataset (1,609 images). 
 
-The project aims to support automated road inspection and road condition assessment.
-
-## Features
-
-* Video upload through a web interface
-* Automated road damage detection using YOLO
-* Frame-by-frame video processing
-* Bounding boxes and labels for detected damage
-* Detection statistics and confidence scores
-* Downloadable processed video
-* Model evaluation and visualization
-
-## Technologies Used
-
-* Python
-* YOLO and Ultralytics
-* OpenCV
-* Flask
-* HTML and CSS
-* Matplotlib
-* PyTorch
-
-### Detect Road Damage
-
-1. Open the detection page.
-2. Upload a supported video file.
-3. Start the detection process.
-4. Wait for the video to be processed.
-5. Download the annotated output video.
-
-Evaluation metrics and visualization plots are saved in the configured evaluation output directory.
-
-## Workflow
-
-1. Collect and prepare the road damage dataset.
-2. Organize images and annotations into training, validation, and testing sets.
-3. Train the YOLO object detection model.
-4. Evaluate the trained model using test data.
-5. Load the trained weights into the Flask application.
-6. Extract and process video frames for road damage detection.
-7. Generate an annotated output video and detection statistics.
-8. Allow users to download the processed video.
-
-## Applications
-
-* Road condition monitoring
-* Pothole and pavement defect identification
-* Automated road inspection
-* Infrastructure maintenance support
-* Road damage assessment
-
-## Limitations
-
-Detection performance depends on the quality of the input video, lighting conditions, camera angle, dataset coverage, and trained model performance. The system's detection counts may include the same physical defect across multiple video frames.
-
-## Future Enhancements
-
-* Real-time road damage detection
-* GPS-based damage location tracking
-* Road damage severity classification
-* Database integration for historical records
-* Automated maintenance prioritization
+In addition to model training and rigorous test evaluation, the system features a video-processing pipeline integrated into a web interface to support automated road inspection and infrastructure assessment.
 
 ---
 
-**RDD_AI_p1** — An AI-powered approach to automated road damage detection and video analysis.
+## Key Findings & Research Conclusions
+
+Empirical evaluation on the test split yielded distinct architectural insights:
+- **Accuracy (mAP@0.5):** YOLO11n achieved superior overall localization accuracy (**55.6%**) compared to Faster R-CNN (**36.5%**).
+- **Class Performance:** Both architectures achieved peak precision on regular geometric boundaries like manholes ($75.2\%$ vs. $58.4\%$), while struggling with amorphous, linear fractures like cracks ($41.5\%$ vs. $24.4\%$).
+- **Architectural Trade-offs:** While Faster R-CNN attained a strong harmonic F1 peak after tuning, its Region Proposal Network (RPN) exhibited proposal flooding over textured asphalt surfaces. YOLO11n’s anchor-free grid regression provided cleaner, consolidated bounding box outputs out-of-the-box, establishing it as the superior model for both video-based inspection accuracy and deployment efficiency.
+
+---
+
+## Features
+
+- **Dual-Model Support:** Implementation scripts for training and evaluating both YOLO11n and Faster R-CNN (`rcnn1/` and YOLO configurations).
+- **Comprehensive Evaluation Pipeline:** Generates class-wise AP metrics, F1-confidence curves, precision-recall curves, and confusion matrices.
+- **Web-Based Video Analysis:** Flask application allowing users to upload inspection footage for frame-by-frame processing.
+- **Automated Defect Detection:** Identifies road anomalies (potholes, cracks, manholes) with confidence scoring and bounding box visualization.
+- **Exportable Results:** Downloadable annotated output videos and structured evaluation logs.
+
+---
+
+## Technologies Used
+
+- **Deep Learning & Frameworks:** PyTorch, Ultralytics YOLO, Torchvision
+- **Evaluation & Metrics:** COCO Evaluator (`pycocotools`), NumPy, Matplotlib
+- **Backend & Interface:** Flask, OpenCV
+- **Frontend:** HTML, CSS
+
